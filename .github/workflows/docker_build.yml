@@ -2,8 +2,9 @@ name: Build on Dockerhub
 on: push
 
 env:
-DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,8 +25,9 @@ jobs:
           push: true
           tags: giuji/webacademy:latest
 
-deploy:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Fazendo deploy
-      run: echo "Deploy com sucesso!"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fazendo deploy
+        run: echo "Deploy com sucesso!"
